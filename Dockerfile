@@ -18,7 +18,10 @@ RUN \
  sudo \
  qemu-system \
  qemu-system-arm \
- qemu-system-i386 && \
+ qemu-system-i386 \
+ dfu-util \
+ python-pip && \
+ pip install --pre -U pyocd && \ 
  rm -rf /var/lib/apt/lists/*
 
 RUN \
