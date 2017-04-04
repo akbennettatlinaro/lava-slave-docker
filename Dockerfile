@@ -19,7 +19,10 @@ RUN \
  qemu-system \
  qemu-system-arm \
  qemu-system-i386 \
- qemu-kvm && \ 
+ qemu-kvm \
+ dfu-util \
+ python-pip && \
+ pip install --pre -U pyocd && \  
  rm -rf /var/lib/apt/lists/*
 
 RUN \
