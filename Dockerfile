@@ -26,6 +26,8 @@ RUN \
  git clone -b master https://git.linaro.org/lava/lava-dispatcher.git /root/lava-dispatcher && \
  cd /root/lava-dispatcher && \
  git checkout 2017.2 && \
+ curl https://git.linaro.org/lava/lava-dispatcher.git/patch/?id=94876fd789952dc9da6af3adcf24c3d5ccf76991 > pyocd.patch && \
+ git am pyocd.patch && \
  echo "cd \${DIR} && dpkg -i *.deb" >> /usr/share/lava-server/debian-dev-build.sh && \
  sleep 2 && \
  /usr/share/lava-server/debian-dev-build.sh -p lava-dispatcher
