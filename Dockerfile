@@ -20,6 +20,8 @@ RUN \
  qemu-system-arm \
  qemu-system-i386 \
  dfu-util \
+ libusb-1.0-0-dev \
+ libudev-dev \
  python-pip && \
  pip install --pre -U pyocd && \ 
  rm -rf /var/lib/apt/lists/*
@@ -33,6 +35,12 @@ RUN \
  echo "cd \${DIR} && dpkg -i *.deb" >> /usr/share/lava-server/debian-dev-build.sh && \
  sleep 2 && \
  /usr/share/lava-server/debian-dev-build.sh -p lava-dispatcher
+
+RUN \
+ cd /root && \
+ git clone https://github.com/Yepkit/pykush && \
+ cd pykush/ && \
+ python setup.py install
 
 COPY lava-slave /etc/lava-dispatcher/lava-slave
 
