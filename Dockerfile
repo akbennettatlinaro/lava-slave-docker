@@ -44,4 +44,6 @@ RUN \
 
 COPY lava-slave /etc/lava-dispatcher/lava-slave
 
+COPY scripts/ /root/scripts
+
 CMD /start.sh && bash
