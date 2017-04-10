@@ -1,4 +1,4 @@
-FROM aarch64/debian:sid
+FROM linarotechnologies/minideb:stretch-arm64
 
 # Add services helper utilities to start and stop LAVA
 COPY stop.sh .
@@ -8,8 +8,7 @@ RUN \
  echo 'lava-server   lava-server/instance-name string lava-slave-instance' | debconf-set-selections && \
  echo 'locales locales/locales_to_be_generated multiselect C.UTF-8 UTF-8, en_US.UTF-8 UTF-8 ' | debconf-set-selections && \
  echo 'locales locales/default_environment_locale select en_US.UTF-8' | debconf-set-selections && \
- apt-get update && \
- DEBIAN_FRONTEND=noninteractive apt-get install -y \
+ DEBIAN_FRONTEND=noninteractive install_packages \
  locales \
  lava-dispatcher \
  lava-dev \
@@ -22,16 +21,19 @@ RUN \
  dfu-util \
  libusb-1.0-0-dev \
  libudev-dev \
- python-pip && \
- pip install --pre -U pyocd && \ 
- rm -rf /var/lib/apt/lists/*
+ python-dev \
+ python-pip
+
+RUN \
+ pip install setuptools wheel --upgrade && \
+ pip install --pre -U pyocd
 
 RUN \
  git clone -b master https://git.linaro.org/lava/lava-dispatcher.git /root/lava-dispatcher && \
  cd /root/lava-dispatcher && \
- git checkout 2017.2 && \
- curl https://git.linaro.org/lava/lava-dispatcher.git/patch/?id=94876fd789952dc9da6af3adcf24c3d5ccf76991 > pyocd.patch && \
- git am pyocd.patch && \
+ git checkout 2017.4 && \
+ git config --global user.name "Docker Build" && \
+ git config --global user.email "info@kernelci.org" && \
  echo "cd \${DIR} && dpkg -i *.deb" >> /usr/share/lava-server/debian-dev-build.sh && \
  sleep 2 && \
  /usr/share/lava-server/debian-dev-build.sh -p lava-dispatcher
