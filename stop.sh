@@ -1,3 +1,4 @@
 #!/bin/bash
-service tftpd-hpa start
+service ser2net stop
+service tftpd-hpa stop
 service lava-slave stop

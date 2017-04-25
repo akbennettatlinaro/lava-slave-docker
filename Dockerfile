@@ -18,6 +18,8 @@ RUN \
  qemu-system \
  qemu-system-arm \
  qemu-system-i386 \
+ tftpd-hpa \
+ ser2net \
  dfu-util \
  libusb-1.0-0-dev \
  libudev-dev \
@@ -34,6 +36,8 @@ RUN \
  git checkout 2017.4 && \
  git config --global user.name "Docker Build" && \
  git config --global user.email "info@kernelci.org" && \
+ curl https://github.com/EmbeddedAndroid/lava-dispatcher/commit/f34cacee50a8e702aa05644286e618316c1f3658.patch | git am && \
+ curl https://github.com/EmbeddedAndroid/lava-dispatcher/commit/ac1bb2ab83ba243cc9b9d3dc890e38226d63872a.patch | git am && \
  echo "cd \${DIR} && dpkg -i *.deb" >> /usr/share/lava-server/debian-dev-build.sh && \
  sleep 2 && \
  /usr/share/lava-server/debian-dev-build.sh -p lava-dispatcher
@@ -44,8 +48,16 @@ RUN \
  cd pykush/ && \
  python setup.py install
 
-COPY lava-slave /etc/lava-dispatcher/lava-slave
+COPY configs/lava-slave /etc/lava-dispatcher/lava-slave
+
+COPY configs/tftpd-hpa /etc/default/tftpd-hpa
+
+COPY configs/ser2net.conf /etc/ser2net.conf
 
 COPY scripts/ /root/scripts
+
+RUN chmod a+x /root/scripts/*
+
+EXPOSE 69/udp
 
 CMD /start.sh && bash
