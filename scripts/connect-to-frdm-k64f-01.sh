@@ -1,2 +1,2 @@
 #!/bin/bash
-telnet localhost 2001
+telnet 127.0.0.1 2001
