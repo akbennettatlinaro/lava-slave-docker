@@ -15,6 +15,7 @@ RUN \
  git \
  vim \
  sudo \
+ expect \
  qemu-system \
  qemu-system-arm \
  qemu-system-i386 \
