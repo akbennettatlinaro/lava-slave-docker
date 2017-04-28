@@ -16,6 +16,7 @@ RUN \
  vim \
  sudo \
  expect \
+ u-boot-tools \
  qemu-system \
  qemu-system-arm \
  qemu-system-i386 \
