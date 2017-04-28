@@ -1,7 +1,7 @@
 #!/usr/bin/expect -f
 set state [lindex $argv 0]
 set port [lindex $argv 1]
-spawn ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 ubnt@pdu05
+spawn ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group1-sha1 ubnt@pdu05
 expect "password: "
 send "ubnt\r"
 expect "MF.v2.0.8#"
