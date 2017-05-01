@@ -17,6 +17,8 @@ RUN \
  sudo \
  expect \
  u-boot-tools \
+ python-setproctitle \
+ device-tree-compiler \
  qemu-system \
  qemu-system-arm \
  qemu-system-i386 \
@@ -41,6 +43,7 @@ RUN \
  curl https://github.com/EmbeddedAndroid/lava-dispatcher/commit/f34cacee50a8e702aa05644286e618316c1f3658.patch | git am && \
  curl https://github.com/EmbeddedAndroid/lava-dispatcher/commit/ac1bb2ab83ba243cc9b9d3dc890e38226d63872a.patch | git am && \
  curl https://github.com/EmbeddedAndroid/lava-dispatcher/commit/e3e4d946afed9d248966031c6a01a13bbffd4ccf.patch | git am && \
+ curl https://github.com/EmbeddedAndroid/lava-dispatcher/commit/bf509bf0a1b22d484b42fd25bc1cb80d126c9281.patch | git am && \
  echo "cd \${DIR} && dpkg -i *.deb" >> /usr/share/lava-server/debian-dev-build.sh && \
  sleep 2 && \
  /usr/share/lava-server/debian-dev-build.sh -p lava-dispatcher
