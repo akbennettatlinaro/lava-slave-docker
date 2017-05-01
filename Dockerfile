@@ -1,8 +1,8 @@
 FROM linarotechnologies/minideb:stretch-arm64
 
 # Add services helper utilities to start and stop LAVA
-COPY stop.sh .
-COPY start.sh .
+COPY scripts/stop.sh .
+COPY scripts/start.sh .
 
 RUN \
  echo 'lava-server   lava-server/instance-name string lava-slave-instance' | debconf-set-selections && \
